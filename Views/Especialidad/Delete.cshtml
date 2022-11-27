@@ -1,0 +1,21 @@
+﻿@model WebAppMVC.Models.Especialidad
+
+<h3>¿Esta seguro de eliminar el siguiente registro?</h3>
+
+<div>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Descripcion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Descripcion)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id"/>
+        <input type="submit" name="elminar" value="Eliminar" />
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Volver</a>
+</div>

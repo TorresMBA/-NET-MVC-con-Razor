@@ -1,0 +1,46 @@
+﻿@model WebAppMVC.Models.Paciente
+
+<h4>¿Esta seguro de eliminar este paciente?</h4>
+<div>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Apellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Dirrecion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Dirrecion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Telefono)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(modelo => modelo.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(modelo => modelo.Email)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="@Model.IdPaciente" />
+        <input type="submit" value="Eliminar" /> |
+        <a asp-action="Index">Volver</a>
+    </form>
+</div>

@@ -20,6 +20,8 @@ namespace WebAppMVC.Models
 
         public DbSet<Medico> Medico { get; set; }
 
+        public DbSet<MedicoEspecialidad> MedicoEspecialidad { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Especialidad>(entidad => {
@@ -93,6 +95,20 @@ namespace WebAppMVC.Models
                 .IsRequired()
                 .IsUnicode(false);
             });
+
+            modelBuilder.Entity<MedicoEspecialidad>()
+                .HasKey(x => new { x.IdMedico, x.IdEspecialidad });//Lo que se hace acá es que definimos una primary key compuesta por esos dos campos
+
+            //Acá lo que hicimos fue definira una relación entre medico y medicoespecialidad
+            //con la propiedad hasone y withmany 1:N, un medico puede tener muchas especialidas
+            //y con el metodo hasforeignkey es establecer que propiedad va a formar parte esta foring key
+            modelBuilder.Entity<MedicoEspecialidad>().HasOne(x => x.Medico)
+                .WithMany(p => p.MedicoEspecialidades)
+                .HasForeignKey(t => t.IdMedico);
+
+            modelBuilder.Entity<MedicoEspecialidad>().HasOne(x => x.Especialidad)
+                .WithMany(p => p.MedicosEspecialidad)
+                .HasForeignKey(t => t.IdEspecialidad);
         }
     }
 }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace WebAppMVC.Models
 {
@@ -24,5 +23,7 @@ namespace WebAppMVC.Models
         public DateTime HorarioAtencionDesde { get; set; }
 
         public DateTime HorarioAtencionHasta { get; set; }
+
+        public List<MedicoEspecialidad> MedicoEspecialidades { get; set; }
     }
 }

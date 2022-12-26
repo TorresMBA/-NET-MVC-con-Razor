@@ -13,6 +13,6 @@ namespace WebAppMVC.Models
 
         public string Descripcion { get; set; }
 
-
+        public List<MedicoEspecialidad> MedicosEspecialidad { get; set; }
     }
 }

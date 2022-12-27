@@ -22,6 +22,8 @@ namespace WebAppMVC.Models
 
         public DbSet<MedicoEspecialidad> MedicoEspecialidad { get; set; }
 
+        public DbSet<Turno> Turno{ get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Especialidad>(entidad => {
@@ -96,6 +98,7 @@ namespace WebAppMVC.Models
                 .IsUnicode(false);
             });
 
+            #region MedicoEspecialidad
             modelBuilder.Entity<MedicoEspecialidad>()
                 .HasKey(x => new { x.IdMedico, x.IdEspecialidad });//Lo que se hace acá es que definimos una primary key compuesta por esos dos campos
 
@@ -109,6 +112,37 @@ namespace WebAppMVC.Models
             modelBuilder.Entity<MedicoEspecialidad>().HasOne(x => x.Especialidad)
                 .WithMany(p => p.MedicosEspecialidad)
                 .HasForeignKey(t => t.IdEspecialidad);
+            #endregion MedicoEspecialidad
+
+            #region Turno
+            modelBuilder.Entity<Turno>(entidad => {
+                entidad.ToTable("Turno");
+                entidad.HasKey(p => p.IdTurno);
+                entidad.Property(e => e.IdPaciente)
+                .IsRequired()
+                .IsUnicode(false);
+
+                entidad.Property(e => e.IdMedico)
+                .IsRequired()
+                .IsUnicode(false);
+
+                entidad.Property(e => e.FechaHoraInicio)
+                .IsRequired()
+                .IsUnicode(false);
+
+                entidad.Property(e => e.FechaHoraFin)
+                .IsRequired()
+                .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Turno>().HasOne(x => x.Paciente)
+                .WithMany(p => p.Turnos)
+                .HasForeignKey(t => t.IdPaciente);
+
+            modelBuilder.Entity<Turno>().HasOne(x => x.Medico)
+                .WithMany(p => p.Turnos)
+                .HasForeignKey(t => t.IdMedico);
+            #endregion Turno
         }
     }
 }

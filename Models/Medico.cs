@@ -39,5 +39,7 @@ namespace WebAppMVC.Models
         public DateTime HorarioAtencionHasta { get; set; }
 
         public List<MedicoEspecialidad> MedicoEspecialidades { get; set; }
+
+        public List<Turno> Turnos { get; set; }
     }
 }

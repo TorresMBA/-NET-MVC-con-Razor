@@ -24,6 +24,8 @@ namespace WebAppMVC.Models
 
         public DbSet<Turno> Turno{ get; set; }
 
+        public DbSet<Login> Login { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Especialidad>(entidad => {
@@ -143,6 +145,19 @@ namespace WebAppMVC.Models
                 .WithMany(p => p.Turnos)
                 .HasForeignKey(t => t.IdMedico);
             #endregion Turno
+
+            #region Login
+            modelBuilder.Entity<Login>(entidad => {
+                entidad.ToTable("Login");
+
+                entidad.HasKey(l => l.LoginId);
+                entidad.Property(l => l.Usuario)
+                .IsRequired();
+
+                entidad.Property(l => l.Password)
+                .IsRequired();
+            });
+            #endregion
         }
     }
 }

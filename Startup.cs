@@ -25,6 +25,12 @@ namespace WebAppMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //middleware para el manejo de sesion dentro de nuestra app
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromSeconds(300);
+                options.Cookie.HttpOnly = true;
+            });
+
             services.AddControllersWithViews();
 
             services.AddDbContext<TurnosContext>(options => {
@@ -52,11 +58,13 @@ namespace WebAppMVC
 
             app.UseAuthorization();
 
+            app.UseSession();//Uso de middleware
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

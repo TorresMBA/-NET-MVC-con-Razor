@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +28,11 @@ namespace WebAppMVC
                 options.Cookie.HttpOnly = true;
             });
 
-            services.AddControllersWithViews();
+            //Middleware propio de NET MVC y vamos a añadirle nuestros cambios
+            services.AddControllersWithViews(options => {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+                
 
             services.AddDbContext<TurnosContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("CadenaConexion"));

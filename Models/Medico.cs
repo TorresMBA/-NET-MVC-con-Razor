@@ -30,12 +30,12 @@ namespace WebAppMVC.Models
 
         [Display(Name = "Horario desde")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime HorarioAtencionDesde { get; set; }
 
         [Display(Name = "Horario hasta")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm tt}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime HorarioAtencionHasta { get; set; }
 
         public List<MedicoEspecialidad> MedicoEspecialidades { get; set; }

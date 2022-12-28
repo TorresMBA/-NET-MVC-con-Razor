@@ -22,14 +22,22 @@ namespace WebAppMVC.Controllers
         public IActionResult Index()
         {
             ViewData["IdMedico"] = new SelectList((from medico in _context.Medico.ToList() select new { IdMedico = medico.IdMedico, NombreCompleto = medico.Nombre + " " + medico.Apellido }), "IdMedico", "NombreCompleto");
-            ViewData["IdPaciente"] = new SelectList((from paciente in _context.Paciente.ToList() select new { IdMedico = paciente.IdPaciente, NombreCompleto = paciente.Nombre + " " + paciente.Apellido }), "IdPaciente", "NombreCompleto");
+            ViewData["IdPaciente"] = new SelectList((from paciente in _context.Paciente.ToList() select new { IdPaciente = paciente.IdPaciente, NombreCompleto = paciente.Nombre + " " + paciente.Apellido }), "IdPaciente", "NombreCompleto");
             return View();
         }
 
         public JsonResult ObtenerTurnos(int idMedico)
         {
-            List<Turno> turnos = new List<Turno>();
-            turnos = _context.Turno.Where(t => t.IdMedico == idMedico).ToList();
+            var turnos = _context.Turno.Where(t => t.IdMedico == idMedico)
+                .Select(x => new { 
+                    x.IdTurno,
+                    x.IdMedico,
+                    x.IdPaciente,
+                    x.FechaHoraInicio,
+                    x.FechaHoraFin,
+                    paciente = x.Paciente.Nombre + " " + x.Paciente.Apellido
+                })
+                .ToList();
 
             return Json(turnos);
         }
